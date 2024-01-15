@@ -1,7 +1,8 @@
 <?php      
 
     include('connect.php');  
-    $username = $_POST['useremail'];  
+    $username = $_POST['username'];  
+    $useremail = $_POST['useremail'];  
     $password = $_POST['password'];  
     
     // file1.php
@@ -10,14 +11,17 @@
 
         //to prevent from mysqli injection  
         $username = stripcslashes($username);  
+        $useremail = stripcslashes($useremail); 
         $password = stripcslashes($password);  
-        $username = mysqli_real_escape_string($conn, $username);  
+        $username = mysqli_real_escape_string($conn, $username); 
+        $useremail = mysqli_real_escape_string($conn, $useremail);  
         $password = mysqli_real_escape_string($conn, $password);
         
-        $_SESSION['useremail'] = $username;
+        $_SESSION['username'] = $username;
+        $_SESSION['useremail'] = $useremail;
         $_SESSION['password'] = $password;
       
-        $sql = "select *from users where uemail = '$username' and upass = '$password'";  
+        $sql = "select *from users where uemail = '$useremail' and upass = '$password'";  
         $result = mysqli_query($conn, $sql);  
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
         $count = mysqli_num_rows($result);  

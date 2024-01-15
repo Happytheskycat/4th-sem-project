@@ -4,11 +4,12 @@ include('connect.php');
 // file2.php
 
 session_start();
-$username = $_SESSION['useremail'];
+$username = $_SESSION['username'];
+$useremail = $_SESSION['useremail'];
 $password = $_SESSION['password'];
 
 
-$sql="SELECT * FROM users where uemail = '$username' and upass = '$password'";
+$sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
 $result = mysqli_query($conn,$sql);
 
 // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
@@ -48,6 +49,7 @@ if (mysqli_num_rows($result) > 0) {
 ?>
 <table border="1" >
 	  <tr>
+        <td>Name</td>
 	    <td>Email</td>
 		<td>Password</td>
 		<td>Product</td>
@@ -58,6 +60,7 @@ if (mysqli_num_rows($result) > 0) {
 			while($row = mysqli_fetch_array($result)) {
 			?>
 	  <tr>
+        <td><?php echo $row["uname"]; ?></td>
 	    <td><?php echo $row["uemail"]; ?></td>
 		<td><?php echo $row["upass"]; ?></td>
 		<td><?php echo $row["pid"]; ?></td>
