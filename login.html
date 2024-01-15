@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700'>
+    <link rel="stylesheet" href="./login.css">
+
+    <script src="login.js"></script>
+</head>
+<body>
+    <!-- partial:index.partial.html -->
+<div class="login-form">
+    <form id="form_id" method="post" name="f1" action="auth.php" onsubmit = "return validate()">
+      <h1>Login</h1>
+      <div class="content">
+        <div class="input-field">
+          <input type="email" name="useremail" id="useremail" placeholder="Email" autocomplete="nope">
+        </div>
+        <div class="input-field">
+          <input type="password" name="password" id="password" placeholder="Password" autocomplete="new-password">
+        </div>
+        <a href="#" class="link">Forgot Your Password?</a>
+      </div>
+      <div class="action">
+        
+        <input type="submit" value=" Login" id="login" />
+      </div>
+    </form>
+  </div>
+    
+</body>
+</html>
