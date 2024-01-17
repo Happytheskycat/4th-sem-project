@@ -66,7 +66,7 @@ if (mysqli_num_rows($result) > 0) {
 		        <!-- <td><php echo $row["....."]; ?></td> -->
 		
 		<td >
-            <p><a href="update.php"> Update </a></p>
+            <!-- <p><a href="update.php"> Update </a></p> -->
             <p><a href="delete.php"> Delete Account</a></p>
         </td>
       </tr>
@@ -76,10 +76,16 @@ if (mysqli_num_rows($result) > 0) {
 			?>
 </table>
 
+            <br>
+
+            <?php
+            $sql="SELECT * FROM cart where uemail = '$useremail'";
+            $result = mysqli_query($conn,$sql);
+            ?>
 
 <table border="1" >
 	  <tr>
-        <td>Product</td>
+        <td>Product ID</td>
 	    <td>Quantity</td>
 		<td>Price</td>
         <td>Total</td>

@@ -54,26 +54,26 @@ if (isset($_SESSION['username'])) {
             </script>
             <div> 
                 
-                    <div class="parent">
+                    <!-- <div class="parent"> -->
+                        <nav>
                         <div>
                         <button type="button" id="collapsible" class="collapsible">User</button>
-                        </div>
-                        <div id="content" class="content">
-                            <ul>
-                                <li> 
-                                    <a href="login.html"> Sign in </a>  
-                                </li>  
-                                <li> 
-                                    <a href="register.html"> Register </a>  
-                                </li>  
-                            </ul>
-                        </div> 
-                        <div>
+                            <div id="content" class="content">
+                                <ul>
+                                    <li> 
+                                        <a href="login.html"> Sign in </a>  
+                                    </li>  
+                                    <li> 
+                                        <a href="register.html"> Register </a>  
+                                    </li>  
+                                </ul>
+                            </div> 
+                        
                         <button type="button" id="collapsible" class="collapsible">About</button>
-                        </div>
-                        <div>
+                        
                         <button type="button" id="collapsible" class="collapsible">Contact</button>
-                        </div> 
+                        <!-- </div>  -->
+                        </nav>
                  
 
              
