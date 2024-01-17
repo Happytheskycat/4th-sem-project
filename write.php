@@ -5,7 +5,7 @@
     $useremail = $_POST['useremail'];  
     $password = $_POST['password'];  
     $pid = $_POST['pid']; 
-    $ppiece = $_POST['ppiece']; 
+    $qty = $_POST['qty']; 
     
     // file0.php
 
@@ -15,16 +15,16 @@
         $useremail = stripcslashes($useremail); 
         $password = stripcslashes($password);  
         $pid = stripcslashes($pid); 
-        $ppiece = stripcslashes($ppiece); 
+        $qty = stripcslashes($qty); 
         $username = mysqli_real_escape_string($conn, $username); 
         $useremail = mysqli_real_escape_string($conn, $useremail);  
         $password = mysqli_real_escape_string($conn, $password);
         $pid = mysqli_real_escape_string($conn, $pid);
-        $ppiece = mysqli_real_escape_string($conn, $ppiece);
+        $qty = mysqli_real_escape_string($conn, $qty);
 
 
       
-        $sql = "INSERT INTO users (uname,uemail, upass, pid,ppiece) VALUES ($username,$useremail,$password,$pid,$ppiece)";
+        $sql = "INSERT INTO users (uname,uemail, upass, pid,qty) VALUES ($username,$useremail,$password,$pid,$qty)";
         $result = mysqli_query($conn, $sql);    
 
           

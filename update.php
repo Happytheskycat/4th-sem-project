@@ -8,8 +8,8 @@ session_start();
 $username = $_SESSION['username'];
 $useremail = $_SESSION['useremail'];
 $password = $_SESSION['password'];
-$pid = $_POST['pid']; 
-$ppiece = $_POST['ppiece']; 
+// $pid = $_POST['pid']; 
+// $qty = $_POST['qty']; 
 
 
 $sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
@@ -55,8 +55,8 @@ if (mysqli_num_rows($result) > 0) {
         <td>Name</td>
 	    <td>Email</td>
 		<td>Password</td>
-		<td>Product Name</td>
-        <td>Product piece</td>
+		<!-- <td>Product Name</td>
+        <td>Quantity</td> -->
         <td>Action</td>
 	  </tr>
 			<?php
@@ -68,8 +68,8 @@ if (mysqli_num_rows($result) > 0) {
         <td> <input type="text" id="username" name="username" value="<?php echo $row["uname"]; ?>"> </td>
         <td> <input type="email" id="useremail" name="useremail" value="<?php echo $row["uemail"]; ?>"> </td>
 		<td> <input type="text" id="password" name="password" value="<?php echo $row["upass"]; ?>"> </td>
-		<td> <input type="number" id="pid" name="pid" value="<?php echo $row["pid"]; ?>" readonly></td>
-        <td> <input type="number" id="ppiece" name="ppiece" value=" <?php echo $row["piece"]; ?> "> </td>
+		<!-- <td> <input type="number" id="pid" name="pid" value="<php echo $row["pid"]; ?>" readonly></td>
+        <td> <input type="number" id="qty" name="qty" value=" <php echo $row["piece"]; ?> "> </td> -->
 
 		<td >
             <input type="submit" name="submit" value="Submit" class="buttom">

@@ -51,8 +51,8 @@ if (mysqli_num_rows($result) > 0) {
 	  <tr>
         <td>Name</td>
 	    <td>Email</td>
-		<td>Password</td>
-		<td>Product</td>
+		<!-- <td>Password</td> -->
+		<!-- <td>Product</td> -->
         <td>Action</td>
 	  </tr>
 			<?php
@@ -62,12 +62,12 @@ if (mysqli_num_rows($result) > 0) {
 	  <tr>
         <td><?php echo $row["uname"]; ?></td>
 	    <td><?php echo $row["uemail"]; ?></td>
-		<td><?php echo $row["upass"]; ?></td>
-		<td><?php echo $row["pid"]; ?></td>
+	            <!-- <td><php echo $row["upass"]; ?></td> -->
+		        <!-- <td><php echo $row["....."]; ?></td> -->
 		
 		<td >
             <p><a href="update.php"> Update </a></p>
-            <p><a href="delete.php"> Delete </a></p>
+            <!-- <p><a href="delete.php"> Delete </a></p> -->
         </td>
       </tr>
 			<?php
@@ -75,6 +75,54 @@ if (mysqli_num_rows($result) > 0) {
 			}
 			?>
 </table>
+
+
+<table border="1" >
+	  <tr>
+        <td>Product</td>
+	    <td>Quantity</td>
+		<td>Price</td>
+        <td>Total</td>
+		<!-- <td>Product</td> -->
+        <td>Action</td>
+	  </tr>
+			<?php
+			// $i=0;
+			while($row = mysqli_fetch_array($result)) {
+			?>
+	  <tr>
+        <td><?php echo $row["pid"]; ?></td>
+	    <td><?php echo $row["qty"]; ?></td>
+        <script>
+            function calculate(){
+                var quantity = $row["qty"];
+                var price = $row["price"];
+                var total = quantity * price;
+
+                document.getElementById("total").innerhtml=total;
+            }
+
+        </script>
+        <td><?php echo $row["price"]; ?></td>
+        <td>
+            <button  id = "calculate"  value="Calculate" onclick = "calculate()"></button> <br>
+            <p id="total"></p>
+        </td>
+	            <!-- <td><php echo $row["upass"]; ?></td> -->
+		        <!-- <td><php echo $row["....."]; ?></td> -->
+		
+		<td >
+            <p><a href="update.php"> Update </a></p>
+            <!-- <p><a href="delete.php"> Delete </a></p> -->
+        </td>
+      </tr>
+			<?php
+			// $i++;
+			}
+			?>
+</table>
+
+
  <?php
 }
 else
@@ -83,7 +131,7 @@ else
 }
 ?>
     
-    <p><a href="index.html" style="text-decoration: none; font-size:25px" >Go back</a></p>
+    <p><a href="index.php" style="text-decoration: none; font-size:25px" >Go back</a></p>
 
 </body>
 </html>

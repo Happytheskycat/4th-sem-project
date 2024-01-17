@@ -4,18 +4,29 @@ include('connect.php');
 // file2.php
 
 session_start();
-$username = $_SESSION['username'];
-$useremail = $_SESSION['useremail'];
-$password = $_SESSION['password'];
-$pid = $_SESSION['pid'];
-$ppiece = $_SESSION['ppiece'];
+
+if (isset($_SESSION['username'])) {
+    // The 'username' key exists in the $_SESSION array
+    $username = $_SESSION['username'];
+    $useremail = $_SESSION['useremail'];
+    $password = $_SESSION['password'];
+    $pid = $_SESSION['pid'];
+    $qty = $_SESSION['qty'];
+
+    $sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
+    $result = mysqli_query($conn,$sql);
+
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
+    $count = mysqli_num_rows($result); 
+    } else {
+        $count = 0; 
+        $username = '';
+        $useremail = '';
+        $password = '';
+}
 
 
-$sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
-$result = mysqli_query($conn,$sql);
 
-$row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
-$count = mysqli_num_rows($result); 
 
 ?>
 
@@ -42,11 +53,11 @@ $count = mysqli_num_rows($result);
                 <?php } ?>
             </script>
             <div> 
-                <header>  
-                <nav>  
-                <ul>  
-                <li>  
+                
+                    <div class="parent">
+                        <div>
                         <button type="button" id="collapsible" class="collapsible">User</button>
+                        </div>
                         <div id="content" class="content">
                             <ul>
                                 <li> 
@@ -57,28 +68,28 @@ $count = mysqli_num_rows($result);
                                 </li>  
                             </ul>
                         </div> 
-                </li>  
-                <li>  
-                <a href="#"> About </a>  
-                </li>  
-                <li>  
-                <a href="#"> Contact </a>  
-                </li>  
-                
-                
-                </ul>  
-                </nav>  
-                </header> 
+                        <div>
+                        <button type="button" id="collapsible" class="collapsible">About</button>
+                        </div>
+                        <div>
+                        <button type="button" id="collapsible" class="collapsible">Contact</button>
+                        </div> 
+                 
+
+             
+                </div>
+               
             </div>  
 
 
             <script>   
+                    var username = '<?php echo "$username"?>';
                      if(username=='' || username==null){
                         
                      }
                      else{
                          document.getElementById("collapsible").innerHTML = username; 
-                         document.getElementById("content").value = '  <a href="logout.php"> Sign out </a>   '; 
+                         document.getElementById("content").innerhtml = '  <a href="logout.php"> Sign out </a>   '; 
                      }
 
 
@@ -101,27 +112,28 @@ $count = mysqli_num_rows($result);
 
 
             <div class="center">
-                <div>
-                    <h1>Product</h1>
-                </div>
-
-                <div>
-                    <div>
+                <form action="order.php" method="post">
+                    <div class="cards">
                         <h2>product</h2>
+                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
                     </div>
-                    <div>
+                    <div class="cards">
                         <h2>product</h2>
-                        <button id="product1" name="bag001" class="product" onclick=buy(id)>Buy</button>
+                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
                     </div>
-                </div>
+                    <div class="cards">
+                        <h2>product</h2>
+                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
+                    </div>
+                </form>
             </div>
 
+
             <script>
-                function buy(id){
+                function buy(){
                 <?php 
                     $_SESSION['pid']=id;
-                    $_SESSION['ppiece']=1;
-                    header("Location: update.php");
+                    $_SESSION['qty']=1;
                 ?>
                 }
             </script>
