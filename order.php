@@ -4,6 +4,14 @@
     
     session_start();
 
+        // // Retrieve the data sent from JavaScript
+        // $data = json_decode(file_get_contents("php://input"), true);
+
+        // // Process the data (you can perform database operations or any other task here)
+        // // For demonstration, echoing the received data
+        // echo json_encode(['message' => 'Data received successfully', 'data' => $data]);
+        
+
     if (isset($_SESSION['username'])) {
         // The 'username' key exists in the $_SESSION array
         $username = $_SESSION['username'];

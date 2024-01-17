@@ -9,9 +9,9 @@ if (isset($_SESSION['username'])) {
     // The 'username' key exists in the $_SESSION array
     $username = $_SESSION['username'];
     $useremail = $_SESSION['useremail'];
-    $password = $_SESSION['password'];
-    $pid = $_SESSION['pid'];
-    $qty = $_SESSION['qty'];
+    // $password = $_SESSION['password'];
+    // $pid = $_SESSION['pid'];
+    // $qty = $_SESSION['qty'];
 
     $sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
     $result = mysqli_query($conn,$sql);
@@ -52,34 +52,38 @@ if (isset($_SESSION['username'])) {
                     var useremail = "<?php echo $useremail ?>";
                 <?php } ?>
             </script>
-            <div> 
-                
-                    <div class="parent">
-                        <div>
-                        <button type="button" id="collapsible" class="collapsible">User</button>
-                        </div>
-                        <div id="content" class="content">
-                            <ul>
-                                <li> 
-                                    <a href="login.html"> Sign in </a>  
-                                </li>  
-                                <li> 
-                                    <a href="register.html"> Register </a>  
-                                </li>  
-                            </ul>
-                        </div> 
-                        <div>
-                        <button type="button" id="collapsible" class="collapsible">About</button>
-                        </div>
-                        <div>
-                        <button type="button" id="collapsible" class="collapsible">Contact</button>
-                        </div> 
-                 
 
-             
-                </div>
-               
-            </div>  
+                    <header>
+                        <h1>My Online Store</h1>
+                    </header>
+
+                    <nav>
+                        <a href="#">Home</a> |
+                        <a href="#">Products</a> |
+                        <a href="#">Contact</a>
+                    </nav>
+
+                    <section>
+                        <article>
+                            <h2>Product 1</h2>
+                            <p>Description of Product 1.</p>
+                            <p>Price: $19.99</p>
+                            <button>Add to Cart</button>
+                        </article>
+
+                        <article>
+                            <h2>Product 2</h2>
+                            <p>Description of Product 2.</p>
+                            <p>Price: $29.99</p>
+                            <button>Add to Cart</button>
+                        </article>
+
+                        <!-- Add more product articles as needed -->
+                    </section>
+
+                    <footer>
+                        &copy; 2023 My Online Store
+                    </footer>
 
 
             <script>   
@@ -111,31 +115,77 @@ if (isset($_SESSION['username'])) {
 
 
 
-            <div class="center">
-                <form action="order.php" method="post">
-                    <div class="cards">
-                        <h2>product</h2>
-                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
-                    </div>
-                    <div class="cards">
-                        <h2>product</h2>
-                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
-                    </div>
-                    <div class="cards">
-                        <h2>product</h2>
-                        <input type="submit" name="product1" class="product" onsubmit="buy()"  value="buy">
-                    </div>
-                </form>
-            </div>
 
 
+
+<!-- 
             <script>
-                function buy(){
-                <?php 
-                    $_SESSION['pid']=id;
-                    $_SESSION['qty']=1;
-                ?>
-                }
+                document.getElementById("submitButton").addEventListener("click", function() {
+                    // Fixed data to be sent
+                    var dataToSend = { key1: "value1", key2: "value2" };
+
+                    // Perform an asynchronous request (AJAX) using fetch
+                    fetch('process.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dataToSend),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the response data from the PHP script
+                        console.log('Response from PHP script:', data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+
             </script>
+ -->
+
+
+
+
+
+
+
+<!-- 
+            <script>
+                // Get all elements with class 'submitButton'
+                var buttons = document.getElementsByClassName("submitButton");
+
+                // Add click event listeners to each button
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].addEventListener("click", function() {
+                        // Get the custom data attributes from the clicked button
+                        var key = this.getAttribute("data-key");
+                        var value = this.getAttribute("data-value");
+
+                        // Create an object with the specific data
+                        var dataToSend = { key: key, value: value };
+
+                        // Perform an asynchronous request (AJAX) using fetch
+                        fetch('process.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(dataToSend),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            // Handle the response data from the PHP script
+                            console.log('Response from PHP script:', data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    });
+                }
+
+            </script>
+         -->
 </body>
 </html>

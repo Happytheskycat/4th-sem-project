@@ -67,7 +67,7 @@ if (mysqli_num_rows($result) > 0) {
 		
 		<td >
             <p><a href="update.php"> Update </a></p>
-            <!-- <p><a href="delete.php"> Delete </a></p> -->
+            <p><a href="delete.php"> Delete Account</a></p>
         </td>
       </tr>
 			<?php
@@ -113,7 +113,6 @@ if (mysqli_num_rows($result) > 0) {
 		
 		<td >
             <p><a href="update.php"> Update </a></p>
-            <!-- <p><a href="delete.php"> Delete </a></p> -->
         </td>
       </tr>
 			<?php
