@@ -1,4 +1,6 @@
 <?php
+
+// Establish database connection
 include('connect.php'); 
 
 // file2.php

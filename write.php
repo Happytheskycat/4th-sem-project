@@ -1,5 +1,5 @@
 <?php      
-
+    // Establish database connection
     include('connect.php');  
     $username = $_POST['username'];  
     $useremail = $_POST['useremail'];  

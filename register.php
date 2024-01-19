@@ -1,5 +1,5 @@
 <?php      
-
+    // Establish database connection
     include('connect.php');  
 
         if ((isset($_POST['username']))&&(isset($_POST['useremail']))&&(isset($_POST['password']))) { 

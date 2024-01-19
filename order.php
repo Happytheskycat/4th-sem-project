@@ -1,5 +1,5 @@
 <?php      
-
+    // Establish database connection
     include('connect.php'); 
     
     session_start();

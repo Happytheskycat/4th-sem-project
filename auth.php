@@ -1,6 +1,7 @@
 <?php      
-
+    // Establish database connection
     include('connect.php');  
+    
     $username = $_POST['username'];  
     $useremail = $_POST['useremail'];  
     $password = $_POST['password'];  
@@ -34,5 +35,7 @@
         else{  
            // echo "<h1> Login failed. Invalid username or password.</h1>";  
             header("Location: index.php"); 
-        }     
+        }   
+        // Close the database connection
+        mysqli_close($conn);  
 ?>

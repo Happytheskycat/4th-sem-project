@@ -1,4 +1,6 @@
 <?php
+
+// Establish database connection
 include('connect.php'); 
 
 // file2.php
@@ -18,6 +20,8 @@ if (isset($_SESSION['username'])) {
 
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
     $count = mysqli_num_rows($result); 
+    // Close the database connection
+    mysqli_close($conn);
     } else {
         $count = 0; 
         $username = '';
@@ -77,7 +81,7 @@ if (isset($_SESSION['username'])) {
                         }
                 </script>
 
-            <div class="center">
+            <div class="center" id="productContainer">
                 
                     <div class="cards">
                         <h2>product</h2>
@@ -136,11 +140,11 @@ if (isset($_SESSION['username'])) {
                                         // Check the status in the response
                                         if (data.status === 'success') {
                                             // Handle success
-                                            alert("Added to cart");
+                                            console.log("Added to cart");
                                             console.log('Operation was successful.');
                                         } else {
                                             // Handle failure
-                                            alert("Not Added to cart");
+                                            console.log("Not Added to cart");
                                             console.error('Operation failed:', data.message);
                                         }
                                     } else {
@@ -159,6 +163,7 @@ if (isset($_SESSION['username'])) {
                 }
 
             </script>
+            
 </body>
 </html>
 
