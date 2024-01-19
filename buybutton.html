@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function() {
+            // Fixed data to be sent
+            var dataToSend = { key1: "value1", key2: "value2" };
+
+            // Perform an asynchronous request (AJAX) using fetch
+            fetch('process.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataToSend),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data from the PHP script
+                console.log('Response from PHP script:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+    </script>
+    
+</body>
+</html>

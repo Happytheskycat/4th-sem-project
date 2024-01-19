@@ -47,40 +47,41 @@ $result = mysqli_query($conn,$sql);
     <?php
 if (mysqli_num_rows($result) > 0) {
 ?>
-<table border="1" >
-	  <tr>
-        <td>Name</td>
-	    <td>Email</td>
-		<!-- <td>Password</td> -->
-		<!-- <td>Product</td> -->
-        <td>Action</td>
-	  </tr>
-			<?php
-			// $i=0;
-			while($row = mysqli_fetch_array($result)) {
-			?>
-	  <tr>
-        <td><?php echo $row["uname"]; ?></td>
-	    <td><?php echo $row["uemail"]; ?></td>
-	            <!-- <td><php echo $row["upass"]; ?></td> -->
-		        <!-- <td><php echo $row["....."]; ?></td> -->
-		
-		<td >
-            <!-- <p><a href="update.php"> Update </a></p> -->
-            <p><a href="delete.php"> Delete Account</a></p>
-        </td>
-      </tr>
-			<?php
-			// $i++;
-			}
-			?>
-</table>
+                    <table border="1" >
+                        <tr>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <!-- <td>Password</td> -->
+                            <!-- <td>Product</td> -->
+                            <td>Action</td>
+                        </tr>
+                                <?php
+                                // $i=0;
+                                while($row = mysqli_fetch_array($result)) {
+                                ?>
+                        <tr>
+                            <td><?php echo $row["uname"]; ?></td>
+                            <td><?php echo $row["uemail"]; ?></td>
+                                    <!-- <td><php echo $row["upass"]; ?></td> -->
+                                    <!-- <td><php echo $row["....."]; ?></td> -->
+                            
+                            <td >
+                                <!-- <p><a href="update.php"> Update </a></p> -->
+                                <p><a href="delete.php"> Delete Account</a></p>
+                            </td>
+                        </tr>
+                                <?php
+                                // $i++;
+                                }
+                                ?>
+                    </table>
 
             <br>
 
             <?php
             $sql="SELECT * FROM cart where uemail = '$useremail'";
             $result = mysqli_query($conn,$sql);
+            $row1 = mysqli_fetch_array($result);
             ?>
 
 <table border="1" >
@@ -94,28 +95,28 @@ if (mysqli_num_rows($result) > 0) {
 	  </tr>
 			<?php
 			// $i=0;
-			while($row = mysqli_fetch_array($result)) {
+			while($row1) {
 			?>
 	  <tr>
-        <td><?php echo $row["pid"]; ?></td>
-	    <td><?php echo $row["qty"]; ?></td>
-        <script>
-            function calculate(){
-                var quantity = $row["qty"];
-                var price = $row["price"];
-                var total = quantity * price;
+      <script>
+                var quantity = $row1["qty"];
+                var price = $row1["price"];
+                        function calculate(){
+                  
+                            var total = quantity * price;
 
-                document.getElementById("total").innerhtml=total;
-            }
-
-        </script>
+                            document.getElementById("total").innerhtml=total;
+                        }
+                    </script>
+        <td id="pid"></td>
+	    <td id="qty"></td>
         <td><?php echo $row["price"]; ?></td>
         <td>
             <button  id = "calculate"  value="Calculate" onclick = "calculate()"></button> <br>
             <p id="total"></p>
         </td>
-	            <!-- <td><php echo $row["upass"]; ?></td> -->
-		        <!-- <td><php echo $row["....."]; ?></td> -->
+	            <!-- <td><?php echo $row["upass"]; ?></td> -->
+		        <!-- <td><?php echo $row["....."]; ?></td> -->
 		
 		<td >
             <p><a href="update.php"> Update </a></p>

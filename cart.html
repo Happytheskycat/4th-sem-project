@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section, aside {
+            float: left;
+            width: 50%;
+            padding: 20px;
+        }
+
+        .product, #cart {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+    </style>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <header>
+        <h1>My Online Store</h1>
+    </header>
+
+    <section id="products">
+        <div class="product" data-id="1" data-name="Product 1" data-price="19.99">
+            <h2>Product 1</h2>
+            <p>Description of Product 1.</p>
+            <p>Price: $19.99</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+
+        <div class="product" data-id="2" data-name="Product 2" data-price="29.99">
+            <h2>Product 2</h2>
+            <p>Description of Product 2.</p>
+            <p>Price: $29.99</p>
+            <button onclick="addToCart(this)">Add to Cart</button>
+        </div>
+
+        <!-- Add more products as needed -->
+    </section>
+
+    <aside id="cart">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items"></ul>
+        <p>Total: $<span id="cart-total">0.00</span></p>
+        <button onclick="checkout()">Checkout</button>
+    </aside>
+
+    <!-- <script src="script.js"></script> -->
+
+    <script>
+
+        function addToCart(button) {
+            var product = button.parentElement;
+            var productId = product.dataset.id;
+            var productName = product.dataset.name;
+            var productPrice = parseFloat(product.dataset.price);
+
+            // Create a new cart item
+            var cartItem = document.createElement('li');
+            cartItem.textContent = productName + ' - $' + productPrice.toFixed(2);
+
+            // Append the cart item to the cart
+            document.getElementById('cart-items').appendChild(cartItem);
+
+            // Update the total price in the cart
+            updateCartTotal(productPrice);
+
+            // Disable the "Add to Cart" button to prevent adding the same item multiple times
+            button.disabled = true;
+        }
+
+        function updateCartTotal(price) {
+            var cartTotalElement = document.getElementById('cart-total');
+            var currentTotal = parseFloat(cartTotalElement.textContent);
+            var newTotal = currentTotal + price;
+            cartTotalElement.textContent = newTotal.toFixed(2);
+        }
+
+        function checkout() {
+            alert('Thank you for shopping! Your total is $' + document.getElementById('cart-total').textContent);
+            // Additional logic for handling the checkout process, e.g., sending the order to the server
+        }
+
+
+    </script>
+
+</body>
+</html>

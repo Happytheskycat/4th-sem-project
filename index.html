@@ -80,3 +80,66 @@
     </footer>
 </body>
 </html>
+
+
+<div> 
+                
+    <div class="parent">
+       <nav>
+       <div class="nav-div">
+           <div id="signin" class="collapsible Alternate" style=" display :">
+                   <button><a href="login.html"> Sign in </a> </button> 
+                   <button><a href="register.html"> Register </a>  </button> 
+           </div>
+           <button type="button" id="user" class="collapsible">User</button>
+               <div id="content" class="content">
+                   <button type="button" class="collapsible"><a href="logout.php"> Sign out </a> </button> 
+               </div> 
+           
+           <button type="button" id="about" class="collapsible">About</button>
+           
+           <button type="button" id="contact" class="collapsible">Contact</button>
+        </div> 
+       </nav>
+</div>
+
+</div>  
+
+
+<script>   
+   var username = '<?php echo "$username"?>';
+    if(username=='' || username==null){
+           // document.getElementsByClassName("Alternate").style.display="block";
+           // document.getElementsById("user").style.display="none";
+
+           var alternateElements = document.getElementsByClassName("Alternate");
+           for (var j = 0; j < alternateElements.length; j++) {
+               alternateElements[j].style.display = "block";
+           }
+           var userElement = document.getElementById("user");
+           if (userElement) {
+               userElement.style.display = "none";
+}
+
+    }
+    else{
+        document.getElementById("user").innerHTML = username; 
+        document.getElementById("content").innerhtml = '  <a href="logout.php"> Sign out </a>   '; 
+    }
+
+
+       var coll = document.getElementsByClassName("collapsible");
+       var i;
+
+       for (i = 0; i < coll.length; i++) {
+       coll[i].addEventListener("click", function() {
+           this.classList.toggle("active");data-value
+           var content = this.nextElementSibling;
+           if (content.style.display === "block") {
+           content.style.display = "none";
+           } else {
+           content.style.display = "block";
+           }
+       });
+       } 
+    </script>
