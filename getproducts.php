@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 // Establish database connection
 include('connect.php');
 
@@ -14,7 +15,6 @@ if (mysqli_num_rows($result) > 0) {
     $productsJson = json_encode($products);
 
     // Output JSON response
-    header('Content-Type: application/json');
     echo $productsJson;
 } else {
     // No products found
