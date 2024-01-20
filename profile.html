@@ -1,0 +1,70 @@
+
+                <!-- <table border="1" >
+                        <tr>
+                            <td>Name</td>
+                            <td>Email</td>
+                            <td>Action</td>
+                        </tr>
+                                <php
+                                // $i=0;
+                                while($row) {
+                                ?>
+                        <tr>
+                            <td><php echo $row["uname"]; ?></td>
+                            <td><php echo $row["uemail"]; ?></td>
+                            
+                            <td >
+                                <p><a href="delete.php"> Delete Account</a></p>
+                                <p><a href="#"> Change Password</a></p>
+                            </td>
+                        </tr>
+                                <php
+                                // $i++;
+                                }
+                                ?>
+                    </table> -->
+
+
+<table border="1" >
+    <tr>
+      <td>Product ID</td>
+      <td>Quantity</td>
+      <td>Price</td>
+      <td>Total</td>
+      <!-- <td>Product</td> -->
+      <td>Action</td>
+    </tr>
+          <?php
+          // $i=0;
+          while($row1) {
+          ?>
+    <tr>
+    <script>
+              var quantity = $row1["qty"];
+              var price = $row1["price"];
+                      function calculate(){
+                
+                          var total = quantity * price;
+
+                          document.getElementById("total").innerhtml=total;
+                      }
+                  </script>
+      <td id="pid"></td>
+      <td id="qty"></td>
+      <td><?php echo $row["price"]; ?></td>
+      <td>
+          <button  id = "calculate"  value="Calculate" onclick = "calculate()"></button> <br>
+          <p id="total"></p>
+      </td>
+              <!-- <td><?php echo $row["upass"]; ?></td> -->
+              <!-- <td><?php echo $row["....."]; ?></td> -->
+      
+      <td >
+          <p><a href="update.php"> Update </a></p>
+      </td>
+    </tr>
+          <?php
+          // $i++;
+          }
+          ?>
+</table>

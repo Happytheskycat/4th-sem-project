@@ -54,8 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Close the statement
                     mysqli_stmt_close($stmt0);
                     if($result0){
-
+                        if($key=='minus'){
+                        $qty = $row0['qty'] - 1;
+                        }else{
                         $qty = $row0['qty'] + 1;
+                        }
                         // Preparing SQL Statement
                         $sql1 = "UPDATE `cart` SET `uemail`=?, `pid`=?, `qty`=? WHERE `uemail` = ? AND `pid` = ?";
                         $stmt1 = mysqli_prepare($conn, $sql1);
@@ -78,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         } 
                         else{  
                             // header('Content-Type: application/json');
-                            $response = array('status' => 'success', 'message' => 'NOT ADDED TO CART.');
+                            $response = array('status' => 'success', 'message' => 'CART NOT UPDATED.');
                             // Any output before this line will interfere with JSON parsing
                             echo trim(json_encode($response));
                         }  
