@@ -53,12 +53,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Close the statement
                     mysqli_stmt_close($stmt0);
-                    if($result0){
-                        if($key=='minus'){
+
+                    if(mysqli_num_rows($result0)>0){
+                        
+                        if($key =='delete'){
+                            $sql2="DELETE FROM `cart` WHERE `uemail` = ? AND `pid` = ?"; 
+                            $stmt2 = mysqli_prepare($conn, $sql2);
+
+                            // Bind parameters
+                            mysqli_stmt_bind_param($stmt2, "si", $useremail, $value);
+
+                            // Execute the statement
+                            mysqli_stmt_execute($stmt2);
+
+                            // Get the result set
+                            $result2 = mysqli_stmt_get_result($stmt2);
+
+                            // Close the statement
+                            mysqli_stmt_close($stmt2);
+
+                            if($result2 === true){  
+                                $response = array('status' => 'success', 'message' => 'DELETED FROM CART.');
+                                echo trim(json_encode($response));
+                            } 
+                            else{  
+                                $response = array('status' => 'error', 'message' => 'NOT DELETED FROM CART.');
+                                echo trim(json_encode($response));
+                            }  
+                        }
+                        else{ if($key=='minus'){
                         $qty = $row0['qty'] - 1;
                         }else{
-                        $qty = $row0['qty'] + 1;
+                            $qty = $row0['qty'] + 1;
                         }
+                       
                         // Preparing SQL Statement
                         $sql1 = "UPDATE `cart` SET `uemail`=?, `pid`=?, `qty`=? WHERE `uemail` = ? AND `pid` = ?";
                         $stmt1 = mysqli_prepare($conn, $sql1);
@@ -85,12 +113,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             // Any output before this line will interfere with JSON parsing
                             echo trim(json_encode($response));
                         }  
-
                     }
-
-
-
-                    else{
+                    
+                }else{
+                    if($key == 'pid'){
                 
                         // $row1 = mysqli_fetch_array($result, MYSQLI_ASSOC);  
                         // $count1 = mysqli_num_rows($result); 
@@ -115,17 +141,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 // Any output before this line will interfere with JSON parsing
                                 echo trim(json_encode($response));
                             }  
-   
-
-                       
                     }
-                } catch (Exception $e) {
-                    // An error occurred, send an error response
-                    $response = array('status' => 'error', 'message' => 'Exception.');
-                    // $response = array('status' => 'error', 'message' =>  $e->getMessage());
-                    echo trim(json_encode($response));
                 }
+
+        } catch (Exception $e) {
+            // An error occurred, send an error response
+            $response = array('status' => 'error', 'message' => 'Exception.');
+            // $response = array('status' => 'error', 'message' =>  $e->getMessage());
+            echo trim(json_encode($response));
         }
+}
    
 
 } else {

@@ -28,14 +28,169 @@ $count = mysqli_num_rows($result);
 
     <style>
 
-    p{
-        text-align: center;
-    }
-    table{
-        text-align: center;
-        margin:auto;
-        width:50%
-    }
+            p{
+                text-align: center;
+            }
+            table{
+                text-align: center;
+                margin:auto;
+                width:50%
+            }
+
+            body {
+              font-family: 'Rubik', sans-serif;
+              margin: 0;
+              padding: 0;
+              background-color: lightgoldenrodyellow;
+          }
+          
+          header {
+              background-color: #333;
+              color: #fff;
+              padding: 10px;
+              text-align: center;
+          }
+          
+          nav {
+              background-color: rgb(240,255,240);
+              color: #fff;
+              padding: 10px;
+              text-align: center;
+              display: flex;
+              position: sticky;
+              padding: 20px 10px;
+              font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+          }
+          
+          section {
+              padding: 20px;
+          }
+          
+          article {
+              margin-bottom: 20px;
+              border: 1px solid #ddd;
+              background-color: #fff;
+              padding: 15px;
+              border-radius: 5px;
+          }
+          
+          footer {
+              background-color: #333;
+              color: #fff;
+              padding: 10px;
+              text-align: center;
+          }
+          
+          .center{
+              /* margin-left: 10px; */
+              /* border: 1px solid black; */
+              padding: 15px;
+              display: flex;
+              flex-wrap: wrap;
+              overflow: hidden;
+              /* height: 150vh; */
+              /* flex-basis: 50%; */
+              /* width: 100%; */
+              justify-content: space-around;
+              align-items: center;
+              background: linear-gradient(rgba(0, 0, 0, 0.3),rgba(255, 255, 255, 0.5));
+          }
+          
+          .cards{
+              border: 1px solid black;
+              border-radius: 10px;
+              margin: 10px;
+              display: flex;
+              flex-direction: column;
+              background: linear-gradient(rgba(255, 255, 255, 0.5),rgba(0, 0, 0, 0.3));
+              /* display: grid;
+              grid-template-columns: 1fr 1fr; */
+              /* gap: 5px; */
+              height: 280px;
+              width: 250px;
+              align-items: center;
+              /* justify-content: space-between; */
+          }
+          
+          Button{
+              border: 1px solid rgb(255, 196, 0);
+              padding: 10px;
+              margin: 7px;
+              border-radius: 20px;
+              width:120px;
+          }
+          h2{
+              margin: 10px
+          }
+          
+          a{
+              color: green;
+              margin-left: 15px;
+              padding: 5px 20px;
+              border-radius: 19px;
+              text-decoration: none;
+              border: 1px solid rgb(255, 196, 0);
+          }
+          
+          a:hover{
+              color: #fff;
+          }
+          
+          
+          
+          ul{
+              display: flex;
+              list-style-type: none;
+          }
+          
+          img{
+              height:48vh;
+              border-radius: 15px;
+          }
+          
+          p{
+              margin: 5px;
+          }
+          
+          .author{
+              /* padding-right: 5px; */
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap: 2px;
+              overflow: hidden;
+              border: 1px solid black;
+              border-radius: 50px;
+              width: 360px;
+              justify-content: center;
+              align-items: center;
+              text-align: center;
+          }
+          
+          .author :hover{
+              width: 140px;
+              transition: 0.2s;
+          }
+          
+          .hidden{
+              overflow: hidden;
+          }
+          .contact{
+              display: grid;
+              grid-template-columns: 1fr 1.5fr;
+              justify-content: center;
+              align-items: center;
+          }
+          .zoom{
+              width: 110px;
+              height: 200px;
+              gap: 5px;
+          }
+          .zoom :hover{
+              width: 150px;
+          }
+          *{
+              margin: 0%;
+          }
 
     </style>
 
@@ -127,10 +282,10 @@ if ($count == 1) {
                                 const title = document.createElement('h2');
                                 title.textContent = product.pname;
 
-                                const pid = document.createElement('h3');
+                                const pid = document.createElement('p');
                                 pid.textContent = product.pid;
 
-                                const qty = document.createElement('h3');
+                                const qty = document.createElement('p');
                                 qty.textContent = product.qty;
 
                                 const buyButton = document.createElement('button');
@@ -145,11 +300,18 @@ if ($count == 1) {
                                 subButton.setAttribute('data-value', product.pid);
                                 subButton.textContent = `-`;
 
+                                const delButton = document.createElement('button');
+                                delButton.classList.add('buyButton');
+                                delButton.setAttribute('data-key', 'delete');
+                                delButton.setAttribute('data-value', product.pid);
+                                delButton.textContent = `Remove`;
+
                                 card.appendChild(title);
                                 card.appendChild(pid);
                                 card.appendChild(qty);
                                 card.appendChild(buyButton);
                                 card.appendChild(subButton);
+                                card.appendChild(delButton);
                                 productContainer.appendChild(card);
                             });
                         })
