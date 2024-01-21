@@ -1,26 +1,46 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-// Establish database connection
+
 include('connect.php');
+session_start();
 
-// Fetch product data from the database
-$sql = "SELECT uemail, pid, qty FROM cart";
-$result = mysqli_query($conn, $sql);
-
-// Check if there are rows in the result
-if (mysqli_num_rows($result) > 0) {
-    $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    // Convert product data to JSON format
-    $productsJson = json_encode($products);
-
-    // Output JSON response
-    echo $productsJson;
-} else {
-    // No products found
-    echo json_encode(array('status' => 'error', 'message' => 'No products found.'));
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
 }
+
+$username = $_SESSION['username'];
+$useremail = $_SESSION['useremail'];
+
+$sql = "SELECT uemail, cart.pid, qty, pname FROM cart LEFT JOIN store ON cart.pid=store.pid WHERE uemail=?";
+$stmt = mysqli_prepare($conn, $sql);
+
+if (!$stmt) {
+    die("Statement preparation failed: " . mysqli_error($conn));
+}
+    mysqli_stmt_bind_param($stmt, "s", $useremail);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+
+    if ($result) {
+        if (mysqli_num_rows($result) > 0) {
+            $products = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            echo json_encode($products);
+        } else {
+            echo json_encode(array('status' => 'error', 'message' => 'No products found.'));
+        }
+    } else {
+        die("Query failed: " . mysqli_error($conn));
+    }
+
+
+
+// Close the result set
+mysqli_free_result($result);
+
+// Close the prepared statement
+mysqli_stmt_close($stmt);
 
 // Close the database connection
 mysqli_close($conn);
+
 ?>

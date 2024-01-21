@@ -1,5 +1,4 @@
 <?php
-
 // Establish database connection
 include('connect.php'); 
 
@@ -92,17 +91,30 @@ if ($count == 1) {
             <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     // Fetch product data from the server
-                    fetch('getCart.php')
+                    fetch('http://localhost/4th-sem-project/getCart.php')
                         .then(response => {
                             console.log(response); // Log the raw response
                             if (response.ok) {
                                 return response.json();
                             } else {
-                                throw new Error('Network response was not ok.');
+                                throw new Error(`HTTP error! Status: ${response.status}`);
                             }
+                            // return response.text(); // Retrieve the response as text
                         })
+                        // .then(data => {
+                            // console.log('raw JSON data',data); // Log the raw JSON data
+                            
+                            // Check if data is a string before attempting to trim
+                            // const trimmedData = typeof data === 'string' ? data.trim() : '';
+
+                            // console.log("Raw JSON data:", trimmedData); // Log the trimmed data
+
+                            // Parse the JSON data
+                            // const jsonData = trimmedData ? JSON.parse(trimmedData) : [];
+                            // return jsonData;
+                        // })
                         .then(products => {
-                            // 'products' should be an array containing product objects            uemail  pid  qty
+                            // 'products' should be an array containing product objects            uemail  pid  qty pname
                             console.log(products);
 
                             // Generate product cards dynamically
@@ -113,7 +125,7 @@ if ($count == 1) {
                                 card.classList.add('cards');
 
                                 const title = document.createElement('h2');
-                                title.textContent = product.pid;
+                                title.textContent = product.pname;
 
                                 const pid = document.createElement('h3');
                                 pid.textContent = product.pid;
@@ -123,12 +135,21 @@ if ($count == 1) {
 
                                 const buyButton = document.createElement('button');
                                 buyButton.classList.add('buyButton');
-                                buyButton.setAttribute('data-key', 'minus');
+                                buyButton.setAttribute('data-key', 'pid');
                                 buyButton.setAttribute('data-value', product.pid);
-                                buyButton.textContent = `Buy ??`;
+                                buyButton.textContent = `+`;
+
+                                const subButton = document.createElement('button');
+                                subButton.classList.add('buyButton');
+                                subButton.setAttribute('data-key', 'minus');
+                                subButton.setAttribute('data-value', product.pid);
+                                subButton.textContent = `-`;
 
                                 card.appendChild(title);
+                                card.appendChild(pid);
+                                card.appendChild(qty);
                                 card.appendChild(buyButton);
+                                card.appendChild(subButton);
                                 productContainer.appendChild(card);
                             });
                         })

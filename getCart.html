@@ -1,0 +1,27 @@
+<!-- getCart.php -->
+<?php
+header('Content-Type: application/json; charset=utf-8');
+// Establish database connection
+include('connect.php');
+session_start();
+$username = $_SESSION['username'];
+$useremail = $_SESSION['useremail'];
+// $password = $_SESSION['password'];
+
+// Fetch product data from the database
+// $sql = "SELECT uemail, pid, qty FROM cart";
+// $sql = "SELECT uemail, pid, qty, pname FROM cart FULL OUTER JOIN store ON cart.pid=store.pid WHERE uemail=$useremail";
+// $result = mysqli_query($conn, $sql);
+$sql = "SELECT uemail, pid, qty, pname FROM cart FULL OUTER JOIN store ON cart.pid=store.pid WHERE uemail=?";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "s", $useremail);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+if (!$result) {
+    die("Query failed: " . mysqli_error($conn));
+}
