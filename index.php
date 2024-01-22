@@ -242,6 +242,9 @@ p{
                                 const title = document.createElement('h2');
                                 title.textContent = product.pname;
 
+                                const price = document.createElement('h3');
+                                price.textContent = '$'+product.price;
+
                                 const description = document.createElement('p');
                                 description.textContent = "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus quos, quam quis suscipit.";
                                 
@@ -254,6 +257,7 @@ p{
 
                                 card.appendChild(title);
                                 card.appendChild(description);
+                                card.appendChild(price);
                                 card.appendChild(buyButton);
                                 productContainer.appendChild(card);
                             });

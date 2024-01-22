@@ -106,8 +106,8 @@ $count = mysqli_num_rows($result);
               /* display: grid;
               grid-template-columns: 1fr 1fr; */
               /* gap: 5px; */
-              height: 280px;
-              width: 250px;
+              height: 300px;
+              width: 260px;
               align-items: center;
               /* justify-content: space-between; */
           }
@@ -283,10 +283,17 @@ if ($count == 1) {
                                 title.textContent = product.pname;
 
                                 const pid = document.createElement('p');
-                                pid.textContent = product.pid;
+                                pid.textContent = 'Product id:'+product.pid;
+
+                                var price0 = product.price;
+                                var qty0 = product.qty;
+                                var price1 = price0*qty0;
 
                                 const qty = document.createElement('p');
-                                qty.textContent = product.qty;
+                                qty.textContent = 'Quantity:'+ product.qty;
+
+                                const price = document.createElement('p');
+                                price.textContent = 'Price:'+ price1;
 
                                 const buyButton = document.createElement('button');
                                 buyButton.classList.add('buyButton');
@@ -309,6 +316,7 @@ if ($count == 1) {
                                 card.appendChild(title);
                                 card.appendChild(pid);
                                 card.appendChild(qty);
+                                card.appendChild(price);
                                 card.appendChild(buyButton);
                                 card.appendChild(subButton);
                                 card.appendChild(delButton);
@@ -359,6 +367,7 @@ if ($count == 1) {
                                         // Handle success
                                         // console.log('Operation was successful.');
                                         console.log('Operation was successful:', data.message);
+                                        window.location.reload();
                                     } else {
                                         // Handle failure
                                         console.log("Not Added to cart");
@@ -401,7 +410,9 @@ else
 ?>
     
     <p><a href="index.php" style="text-decoration: none; font-size:25px" >Go back</a></p>
+    <br>
     <p><a href="checkout.php" style="text-decoration: none; font-size:25px" >checkout</a></p>
+    <br>
 
 </body>
 </html>
