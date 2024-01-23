@@ -7,14 +7,14 @@ include('connect.php');
 session_start();
 $username = $_SESSION['username'];
 $useremail = $_SESSION['useremail'];
-$password = $_SESSION['password'];
+// $password = $_SESSION['password'];
 
 
-$sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
-$result = mysqli_query($conn,$sql);
+// $sql="SELECT * FROM users where uemail = '$useremail' and upass = '$password'";
+// $result = mysqli_query($conn,$sql);
 
-$row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
-$count = mysqli_num_rows($result); 
+// $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
+// $count = mysqli_num_rows($result); 
 
 ?>
 
@@ -106,8 +106,8 @@ $count = mysqli_num_rows($result);
               /* display: grid;
               grid-template-columns: 1fr 1fr; */
               /* gap: 5px; */
-              height: 300px;
-              width: 260px;
+              height: 330px;
+              width: 300px;
               align-items: center;
               /* justify-content: space-between; */
           }
@@ -196,20 +196,28 @@ $count = mysqli_num_rows($result);
 
 </head>
 <body>
-        
-    <?php
-if ($count == 1) {
-?>              
+                  
                 <div class="center" id="userProfile" >
 
                 </div>
                 <script>
-                    const userProfile = document.getElementById('userProfile');
-                     const card = document.createElement('div');
+                    fetch('http://localhost/4th-sem-project/getProfile.php')
+                        .then(response => {
+                            console.log(response); // Log the raw response
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            // return response.text(); // Retrieve the response as text
+                        })
+                        .then(profile => {
+                                const userProfile = document.getElementById('userProfile');
+                                const card = document.createElement('div');
                                 card.classList.add('cards');
 
                                 const title = document.createElement('h2');
-                                title.textContent =  '<?php echo $username; ?>';
+                                title.textContent = profile.uname;
 
                                 const description = document.createElement('p');
                                 description.textContent = 'Hi! Welcome to your profile page.';
@@ -224,19 +232,12 @@ if ($count == 1) {
                                 card.appendChild(description);
                                 card.appendChild(updateButton);
                                 userProfile.appendChild(card);
+                        });
                 </script>
                                 
 
 
             <br>
-
-            <?php
-            $sql1="SELECT * FROM cart where uemail = '$useremail'";
-            $result1 = mysqli_query($conn,$sql);
-            $row1 = mysqli_fetch_array($result);
-
-            ?>
-
 
             <div class="center" id="productContainer">
                 <!-- Generated content here -->
@@ -256,24 +257,14 @@ if ($count == 1) {
                             }
                             // return response.text(); // Retrieve the response as text
                         })
-                        // .then(data => {
-                            // console.log('raw JSON data',data); // Log the raw JSON data
-                            
-                            // Check if data is a string before attempting to trim
-                            // const trimmedData = typeof data === 'string' ? data.trim() : '';
-
-                            // console.log("Raw JSON data:", trimmedData); // Log the trimmed data
-
-                            // Parse the JSON data
-                            // const jsonData = trimmedData ? JSON.parse(trimmedData) : [];
-                            // return jsonData;
-                        // })
+                   
                         .then(products => {
                             // 'products' should be an array containing product objects            uemail  pid  qty pname
                             console.log(products);
 
                             // Generate product cards dynamically
                             const productContainer = document.getElementById('productContainer');
+                            var TotalPrice=0.00;
 
                             products.forEach(product => {
                                 const card = document.createElement('div');
@@ -285,15 +276,22 @@ if ($count == 1) {
                                 const pid = document.createElement('p');
                                 pid.textContent = 'Product id:'+product.pid;
 
-                                var price0 = product.price;
-                                var qty0 = product.qty;
-                                var price1 = price0*qty0;
+                                var price0 = parseFloat(product.price);
+                                var qty0 = parseInt(product.qty);
+                                price0 = price0*qty0;
+                                price0 = Number(price0.toFixed(2));
+
+                                TotalPrice = TotalPrice + price0;
+                                TotalPrice  = Number(TotalPrice .toFixed(2));
 
                                 const qty = document.createElement('p');
                                 qty.textContent = 'Quantity:'+ product.qty;
 
                                 const price = document.createElement('p');
-                                price.textContent = 'Price:'+ price1;
+                                price.textContent = 'Price: $'+ product.price;
+
+                                const price1 = document.createElement('p');
+                                price1.textContent = 'Total: $'+ price0;
 
                                 const buyButton = document.createElement('button');
                                 buyButton.classList.add('buyButton');
@@ -315,13 +313,15 @@ if ($count == 1) {
 
                                 card.appendChild(title);
                                 card.appendChild(pid);
-                                card.appendChild(qty);
                                 card.appendChild(price);
+                                card.appendChild(qty);
+                                card.appendChild(price1);
                                 card.appendChild(buyButton);
                                 card.appendChild(subButton);
                                 card.appendChild(delButton);
                                 productContainer.appendChild(card);
                             });
+                            document.getElementById("total").textContent='Pay: $'+TotalPrice;
                         })
                         .catch(error => {
                             console.error('Error during fetch:', error);
@@ -389,29 +389,10 @@ if ($count == 1) {
             });
 
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
- <?php
-}
-else
-{
-    echo "No result found";
-}
-?>
     
     <p><a href="index.php" style="text-decoration: none; font-size:25px" >Go back</a></p>
     <br>
-    <p><a href="checkout.php" style="text-decoration: none; font-size:25px" >checkout</a></p>
+    <p><a id="total" href="checkout.php" style="text-decoration: none; font-size:25px" >checkout  </a></p>
     <br>
 
 </body>

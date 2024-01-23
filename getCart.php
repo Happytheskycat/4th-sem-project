@@ -11,12 +11,15 @@ if (!$conn) {
 $username = $_SESSION['username'];
 $useremail = $_SESSION['useremail'];
 
-$sql = "SELECT uemail, cart.pid, qty, pname FROM cart LEFT JOIN store ON cart.pid=store.pid WHERE uemail=?";
+$sql = "SELECT uemail, cart.pid, qty, pname, price FROM cart
+        LEFT JOIN store ON cart.pid=store.pid
+        WHERE uemail=? OR uemail IS NULL";
+
 $stmt = mysqli_prepare($conn, $sql);
 
-if (!$stmt) {
-    die("Statement preparation failed: " . mysqli_error($conn));
-}
+    if (!$stmt) {
+        die("Statement preparation failed: " . mysqli_error($conn));
+    }
     mysqli_stmt_bind_param($stmt, "s", $useremail);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
