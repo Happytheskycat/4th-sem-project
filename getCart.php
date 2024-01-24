@@ -12,7 +12,7 @@ $username = $_SESSION['username'];
 $useremail = $_SESSION['useremail'];
 
 $sql = "SELECT uemail, cart.pid, qty, pname, price FROM cart
-        LEFT JOIN store ON cart.pid=store.pid
+        INNER JOIN store ON cart.pid=store.pid
         WHERE uemail=? OR uemail IS NULL";
 
 $stmt = mysqli_prepare($conn, $sql);
